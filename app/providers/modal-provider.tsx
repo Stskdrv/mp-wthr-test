@@ -1,6 +1,7 @@
 'use client'
 
 import HistoryModal from "@/components/modals/history-modal";
+import UserDataModal from "@/components/modals/user-data-modal";
 import { useEffect, useState } from "react";
 
  const ModalProvider = () => {
@@ -15,6 +16,7 @@ import { useEffect, useState } from "react";
     return (
         <>
             <HistoryModal />
+            <UserDataModal />
         </>
     );
 }; 
