@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Weathio 
+====================================
 
-## Getting Started
+Welcome to my weather and location managing application! This app is targeted towards park rangers that need to quickly identify their location and current weather conditions, that need to be reported as they traverse through the national park.
 
-First, run the development server:
+[](https://github.com/Stskdrv/mp-wthr-test#features)
+-------------------------------------------
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Features
+--------
+
+-   **Current location**: View your current location.
+
+-   **Search feature**: Get a detailed weather info and check location on a map.
+
+-   **History**: Check your last searches.
+
+--------------------------------------------------
+
+Getting Started
+---------------
+
+Follow these simple steps to get started with our application:
+
+1.  **Clone the Repository**: Clone this repository to your local machine.
+
+    ```source-shell
+    git clone
+    ```
+
+**Add .env file in app root directory**: Open app root folder and create new file called .env. Then you need to add and fill environment variables:
+
+```source-shell
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=please add valid token
+CLERK_SECRET_KEY=please add valid key
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=please add valid url
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=please add valid url
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=please add valid url
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=please add valid url
+
+MONGODB_URL=please add valid url
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Install Dependencies and Run the Application:**: Navigate to the project directory, install the required dependencies, and start the development server to run the application locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```source-shell
+cd mp-wthr-test
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Access the Application:**: Open your web browser and access the application at
 
-## Learn More
+```source-shell
+http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+```
+[](https://github.com/Stskdrv/mp-wthr-test#license)
+------------------------------------------
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+License
+-------
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the license.
