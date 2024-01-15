@@ -60,7 +60,7 @@ const HistoryComponent = ({ historyData }: any) => {
                                     📍 Longitude: {Number(el.data.lng).toFixed(3)}
                                 </p>
                                 <p className='text-sm font-medium'>
-                                    🔍 Search query: {el.data.searchQuery}
+                                    🔍 Search query: {el.data.searchQuery.substring(0, 40)}
                                 </p>
                             </div>
                         </div>
