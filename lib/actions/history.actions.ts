@@ -1,6 +1,6 @@
 "use server";
 
-import HistoryModal from "../models/history.model";
+import HistoryModel from "../models/history.model";
 import UserModal from "../models/user.model";
 import { connectToDb } from "../mongoose";
 
@@ -20,7 +20,7 @@ export const postHistory = async ({ data, userId }: Params) => {
 
         // TODO: in future ensure that the user with the given userId exists
  
-        await HistoryModal.create({
+        await HistoryModel.create({
             userId,
             data,
         });
@@ -34,10 +34,8 @@ export const postHistory = async ({ data, userId }: Params) => {
 export async function fetchUserHistory(clerkId: string) {
     try {
         connectToDb();
-        console.log('hehehe');
         
-        // Find all history entries with the given userId
-        const history = await HistoryModal.find({ userId: clerkId });
+        const history = await HistoryModel.find({ userId: clerkId });
         
         return JSON.stringify(history);
     } catch (error: any) {

@@ -89,4 +89,3 @@ export const getUserPosition = async () => {
     return { lat, lng };
   });
 };
-

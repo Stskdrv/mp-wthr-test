@@ -8,8 +8,6 @@ export const getWeather = async ({ lat, lng, city }: { lat?: string, lng?: strin
 
     const response = (await axios.get(url)).data;
     const formattedResponse = prepareWeatherResponse(response);
-    console.log(formattedResponse);
-
-
+    
     return formattedResponse;
 };

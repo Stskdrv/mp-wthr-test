@@ -1,8 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Locate } from 'lucide-react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { getMarkerTitle } from '@/services/map.service';
+import toast from 'react-hot-toast';
 import {
   Card,
   CardContent,
@@ -10,28 +11,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Input } from '../ui/input';
-import toast from 'react-hot-toast';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import LoaderComponent from '@/components/ui/loader';
+import ErrorComponent from '@/components/ui/error-component';
+import { getWeather } from '@/services/weather.service';
+import WeatherComponent from '@/components/weather-components/weather-component';
 import useUserData from '@/hooks/useUserData';
-import { postHistory } from '@/lib/actions/history.actions';
 import { fetchUser } from '@/lib/actions/user.actions';
-import { Locate } from 'lucide-react';
-import { Button } from '../ui/button';
+import { getMarkerTitle } from '@/services/map.service';
 import { useRouter } from 'next/navigation';
 import { LOADING } from '@/lib/constants';
-import LoaderComponent from '../ui/loader';
-import ErrorComponent from '../ui/error-component';
-import { getWeather } from '@/services/weather.service';
-import WeatherComponent from '../weather-components/weather-component';
+import useInitMap from '@/hooks/useInitMap';
 
 
 const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const [isLoading, setIsLoading] = useState(LOADING.INITIAL);
-  const [weather, setWeather] = useState<any>(null);
 
-  const [currentLocation, setCurrentLoacation] = useState<string>('');
+  
+  const [isLoading, setIsLoading] = useState(LOADING.INITIAL);
+  // const [weather, setWeather] = useState<any>(null);
+
+  // const [currentLocation, setCurrentLoacation] = useState<string>('');
   const { setUserData } = useUserData();
   const router = useRouter();
 
@@ -42,7 +44,6 @@ const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
     async () => {
       try {
         const userData = await fetchUser(userId);
-        console.log(userData, 'userData');
 
         setUserData(userData);
 
@@ -57,94 +58,27 @@ const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
   const getWeatherData = useCallback(
     async (position: { lat: string, lng: string }) => {
       const data = await getWeather(position);
-      console.log(data);
       return data;
     },
     [],
   );
 
-
+  const {
+    initMap, 
+    weather, 
+    currentLocation
+    } = useInitMap({
+      mapRef,
+      searchInputRef,
+      getWeatherData,
+      getMarkerTitle, 
+      userId}
+  );
 
   useEffect(() => {
     try {
       getUserData();
       setIsLoading(LOADING.PENDING);
-
-      const initMap = async () => {
-        const loader = new Loader({
-          apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
-          version: 'weekly',
-          libraries: ['places'], // Include the 'places' library
-        });
-
-
-        const userPosition = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        }).then((pos: any) => {
-          const { latitude: lat, longitude: lng } = pos.coords;
-          return { lat, lng };
-        });
-
-
-        const { Map } = await loader.importLibrary('maps');
-
-        const { Marker } = await loader.importLibrary('marker') as google.maps.MarkerLibrary;
-
-        const position = {
-          lat: userPosition.lat,
-          lng: userPosition.lng,
-        };
-        const mapOptions: google.maps.MapOptions = {
-          center: userPosition,
-          zoom: 12,
-          mapId: 'MY_TEST_ID',
-        };
-
-        const map = new Map(mapRef.current as HTMLDivElement, mapOptions);
-
-        const pointLocation = (await getMarkerTitle(userPosition));
-        setCurrentLoacation(pointLocation.substring(pointLocation.indexOf(' ')));
-
-        const marker = new Marker({
-          map,
-          position,
-          title: pointLocation,
-        });
-
-        // Create a search input and link it to the Places Autocomplete service
-        const autocomplete = new google.maps.places.Autocomplete(searchInputRef.current as HTMLInputElement);
-
-        // Add a listener to handle the place selection
-        autocomplete.addListener('place_changed', async () => {
-          const selectedPlace = autocomplete.getPlace();
-
-          if (!selectedPlace.geometry) {
-            console.error('Place selection did not have geometry');
-            toast.error('Place selection did not have geometry');
-            return;
-          };
-
-          const selectedPlaceLocationData = {
-            lat: String(selectedPlace.geometry.location?.lat()),
-            lng: String(selectedPlace.geometry.location?.lng()),
-            searchQuery: searchInputRef.current!.value,
-          }
-          console.log(selectedPlaceLocationData, 'selectedPlaceLocationData');
-
-          // Update the map and marker with the selected location
-          map.setCenter(selectedPlace.geometry.location!);
-          marker.setPosition(selectedPlace.geometry.location);
-          marker.setTitle(searchInputRef.current!.value);
-
-          const weatherData = await getWeatherData({
-            lat: String(selectedPlace.geometry.location?.lat()),
-            lng: String(selectedPlace.geometry.location?.lng())
-          });
-          setWeather(weatherData);
-          await postHistory({ data: selectedPlaceLocationData, userId }).then(() => setIsLoading(LOADING.FULFILLED));
-        });
-      }
-
       initMap();
       setIsLoading(LOADING.FULFILLED);
     } catch (e: any) {
@@ -152,9 +86,6 @@ const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
       throw new Error(e);
     }
   }, []);
-
-
-  console.log(weather, 'weather');
 
   if (isLoading === LOADING.PENDING) return (
     <>

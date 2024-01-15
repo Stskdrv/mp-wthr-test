@@ -28,6 +28,6 @@ const historySchema = new mongoose.Schema({
     }
 });
 
-const HistoryModal = mongoose.models.History || mongoose.model('History', historySchema); // first call I just need to create this model!
+const HistoryModel = mongoose.models.History || mongoose.model('History', historySchema); // first call I just need to create this model!
 
-export default HistoryModal
+export default HistoryModel

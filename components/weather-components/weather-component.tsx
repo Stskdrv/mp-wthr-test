@@ -1,16 +1,16 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { RefreshCwIcon } from 'lucide-react';
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from '../ui/card';
-import { Button } from '../ui/button';
-import { RefreshCwIcon } from 'lucide-react';
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
-import { useRouter } from 'next/navigation';
 
 const WeatherComponent = ({weather}: any) => {
     const router = useRouter();

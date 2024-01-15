@@ -5,13 +5,13 @@ import { fetchUserHistory } from "@/lib/actions/history.actions";
 
 const HistoryPage = async () => {
 
-    const userId = useAuthValidation();
+  const userId = useAuthValidation();
 
-    const historyData = await fetchUserHistory(userId);
-  
+  const historyData = await fetchUserHistory(userId);
+
   return (
     <div>
-     <HistoryComponent historyData={JSON.parse(historyData)} />
+      <HistoryComponent historyData={JSON.parse(historyData)} />
     </div>
   )
 };

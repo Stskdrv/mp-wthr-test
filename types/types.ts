@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export interface UserInterface {
     _id: string;
     firstname: string;
@@ -139,3 +141,11 @@ export interface DayWeatherInterface {
     date: string;
     data: any[];
 };
+
+export interface InitMapComponentPropsInterface {
+    mapRef: RefObject<any>;
+    searchInputRef: RefObject<HTMLInputElement>;
+    getMarkerTitle: (marker: any) => string;
+    getWeatherData: (location: {lat: string, lng: string}) => Promise<any>;
+    userId: string;
+}

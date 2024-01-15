@@ -2,7 +2,7 @@
 
 import UserModal from "@/lib/models/user.model";
 import { connectToDb } from "@/lib/mongoose";
-import HistoryModal from "@/lib/models/history.model";
+import HistoryModel from "@/lib/models/history.model";
 
 interface Params {
     clerkId: string;

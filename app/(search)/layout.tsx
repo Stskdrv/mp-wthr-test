@@ -1,7 +1,6 @@
 import Navbar from "@/components/header";
 import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const SearchLayout = async ({

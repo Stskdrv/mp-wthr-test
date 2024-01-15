@@ -12,8 +12,6 @@ const RootLayout = async ({
     const userId = useAuthValidation();
 
     const userInfo = await fetchUser(userId);
-    console.log(userInfo, 'userInfo');
-    
 
     if (userInfo && userInfo.onboarded) redirect(`/map`);
 

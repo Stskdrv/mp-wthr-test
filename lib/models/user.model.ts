@@ -24,13 +24,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    // history: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'History',
-    //         required: true,
-    //     }
-    // ],
     onboarded: {
         type: Boolean,
         default: false
