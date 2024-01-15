@@ -3,8 +3,7 @@ import useAuthValidation from "@/hooks/useAuthValidatation";
 
 
 const SearchPage = () => {
-
-    const userId = useAuthValidation();
+  const userId = useAuthValidation();
 
   return (
     <div>

@@ -1,19 +1,16 @@
 'use client'
 
+import { useCallback, useEffect, useState } from "react";
 import { getUserPosition } from "@/lib/utils";
 import { getWeather } from "@/services/weather.service";
-import { useCallback, useEffect, useState } from "react";
 
-import { useRouter } from "next/navigation";
-import { LOADING } from "@/lib/constants";
 import LoaderComponent from "@/components/ui/loader";
 import ErrorComponent from "@/components/ui/error-component";
-import WeatherComponent from "./weather-component";
+import WeatherComponent from "@/components/weather-components/weather-component";
+import { LOADING } from "@/lib/constants";
 
 
 const WeatherInfo = () => {
-
-
   const [isLoading, setIsLoading] = useState(LOADING.INITIAL);
 
   const getWeatherData = useCallback(

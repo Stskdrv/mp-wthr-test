@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Locate } from 'lucide-react';
-import { Loader } from '@googlemaps/js-api-loader';
 import toast from 'react-hot-toast';
 import {
   Card,
@@ -29,14 +28,9 @@ const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  
   const [isLoading, setIsLoading] = useState(LOADING.INITIAL);
-  // const [weather, setWeather] = useState<any>(null);
-
-  // const [currentLocation, setCurrentLoacation] = useState<string>('');
   const { setUserData } = useUserData();
   const router = useRouter();
-
 
   const title = search ? 'Search new places' : 'Live location map';
 

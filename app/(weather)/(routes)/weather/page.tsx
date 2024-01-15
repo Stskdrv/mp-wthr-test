@@ -4,7 +4,7 @@ import useAuthValidation from "@/hooks/useAuthValidatation";
 
 const WeatherPage = () => {
 
-    const userId = useAuthValidation();
+  useAuthValidation();
 
   return (
     <div>
