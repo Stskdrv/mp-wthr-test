@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import moment from 'moment';
-import { WeatherInterface } from "@/types/types";
+import { DayWeatherInterface, TimeDictionaryInterface, WeatherInterface } from "@/types/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -12,7 +12,7 @@ export const phoneRegex = new RegExp(
 );
 
 
-const timeDictionary = {
+const timeDictionary: TimeDictionaryInterface = {
   Morning: '06:00',
   Day: '12:00',
   Evening: '18:00',
@@ -24,14 +24,14 @@ export const prepareWeatherResponse = (response: WeatherInterface) => {
   const currentDayWeatherHourly = response.forecast.forecastday![0].hour;
 
   const weatherReduce = (dataArr: any[] | null | undefined) => {
-    return dataArr!.reduce((acc, el) => {
+    return dataArr!.reduce((acc: any, el: any) => {
       const time = el.time.split(' ')[1];
 
       for (const timeLabel in timeDictionary) {
-        if (timeDictionary[timeLabel] === time) {
+        if (timeDictionary[timeLabel as keyof TimeDictionaryInterface] === time) {
           const iconCode = el.condition.icon.match(/(\d+)\.png$/)[1];
           acc.push({
-            time: timeLabel,
+            time: timeLabel as keyof TimeDictionaryInterface,
             temp: el.temp_c,
             icon: iconCode,
             wind: el.wind_kph,
@@ -59,13 +59,14 @@ export const prepareWeatherResponse = (response: WeatherInterface) => {
   };
 
   const forecast = response.forecast.forecastday!.reduce((acc, el) => {
-    const day = {};
-    day.date = moment(el.date).format("MMM Do");
-    day.data = weatherReduce(el.hour);
+    const day: DayWeatherInterface = {
+      date: moment(el.date).format("MMM Do"),
+      data: weatherReduce(el.hour),
+    };
 
     acc.push(day);
     return acc;
-  }, []);
+  }, [] as DayWeatherInterface[]);
 
   forecast.shift();
 

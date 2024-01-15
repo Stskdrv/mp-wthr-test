@@ -151,7 +151,7 @@ const Map = ({ search, userId }: { search?: boolean, userId: string }) => {
       setIsLoading(LOADING.REJECTED);
       throw new Error(e);
     }
-  }, [weather]);
+  }, []);
 
 
   console.log(weather, 'weather');

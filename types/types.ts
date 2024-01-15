@@ -127,3 +127,15 @@ export interface HourEntity {
     gust_kph: number;
     uv: number;
 }
+
+export interface TimeDictionaryInterface {
+    Morning: string;
+    Day: string;
+    Evening: string;
+    Night: string;
+};
+
+export interface DayWeatherInterface {
+    date: string;
+    data: any[];
+};
