@@ -29,7 +29,7 @@ export const FORM_FIELDS: FormFieldType[] = [
     {
         name: 'tel',
         label: 'Telephone',
-        placeholder: 'Your telephone'
+        placeholder: '+45 12 34 56 78'
     }
 ];
 

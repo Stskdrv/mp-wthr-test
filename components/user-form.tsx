@@ -1,5 +1,13 @@
 'use client'
 
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import useUserDataModal from '@/hooks/useUserDataModal';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { useAuth } from '@clerk/nextjs';
+import { useRouter } from "next/navigation";
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Form,
     FormControl,
@@ -8,20 +16,12 @@ import {
     FormLabel,
     FormMessage
 } from '@/components/ui/form';
-import * as z from 'zod';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { updateUser } from '@/lib/actions/user.actions';
 import { FORM_FIELDS } from '@/lib/constants';
 import { phoneRegex } from '@/lib/utils';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from "next/navigation";
-import { updateUser } from '@/lib/actions/user.actions';
-import useUserDataModal from '@/hooks/useUserDataModal';
-import { useState } from 'react';
-import useUserId from '@/hooks/useUserData';
-import toast from 'react-hot-toast';
-import { useAuth } from '@clerk/nextjs';
+
 
 const formSchema = z.object({
     firstname: z.string().min(3),
