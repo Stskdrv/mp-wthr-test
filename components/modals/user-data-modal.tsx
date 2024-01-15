@@ -2,9 +2,7 @@
 
 import Modal from "@/components/ui/modal";
 import useUserDataModal from '@/hooks/useUserDataModal';
-import useUserId from '@/hooks/useUserData';
 import UserForm from "../user-form";
-import useUserData from "@/hooks/useUserData";
 
 
 const UserDataModal = () => {

@@ -1,3 +1,5 @@
+'use client'
+
 import {
     Form,
     FormControl,
@@ -13,12 +15,13 @@ import { FORM_FIELDS } from '@/lib/constants';
 import { phoneRegex } from '@/lib/utils';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { updateUser } from '@/lib/actions/user.actions';
 import useUserDataModal from '@/hooks/useUserDataModal';
 import { useState } from 'react';
 import useUserId from '@/hooks/useUserData';
 import toast from 'react-hot-toast';
+import { useAuth } from '@clerk/nextjs';
 
 const formSchema = z.object({
     firstname: z.string().min(3),
@@ -29,7 +32,8 @@ const formSchema = z.object({
 });
 
 const UserForm = () => {
-    const { userId } = useUserId();
+    const { userId } = useAuth();
+    const router = useRouter();
 
     const {
         isOpen,
@@ -50,22 +54,23 @@ const UserForm = () => {
     });
 
 
-const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log('SUBMIT');
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
 
-    try {
-        setIsLoading(true);
-        await updateUser({ userId: userId!, ...values });
-        onClose()
-        toast.success('Personal info was updated');
-    } catch (error) {
-        setIsLoading(false);
-        toast.error('Something went wrong, please try again!')
-        console.log(error, 'error in create/update user');
-    } finally {
-        setIsLoading(false);
-    }
-};
+        try {
+            setIsLoading(true);
+            await updateUser({ clerkId: userId!, ...values });
+            onClose()
+            toast.success('Personal info was updated');
+            router.push(`/map`);
+            router.refresh();
+        } catch (error: any) {
+            setIsLoading(false);
+            toast.error('Something went wrong, please try again!')
+            throw new Error(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Form {...form}>

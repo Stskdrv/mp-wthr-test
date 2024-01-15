@@ -1,9 +1,10 @@
 import Navbar from "@/components/header";
 import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-const MapLayout = async ({
+const SearchLayout = async ({
     children,
 }: {
     children: React.ReactNode,
@@ -27,4 +28,4 @@ const MapLayout = async ({
     )
 };
 
-export default MapLayout;
+export default SearchLayout;

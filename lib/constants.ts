@@ -31,4 +31,15 @@ export const FORM_FIELDS: FormFieldType[] = [
         label: 'Telephone',
         placeholder: 'Your telephone'
     }
-]
+];
+
+export const GOOGLE_GEOCODE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?';
+
+export const WEATHER_BASE_URL = 'http://api.weatherapi.com/v1/forecast.json';
+
+export const LOADING = {
+    INITIAL: 'idle',
+    PENDING: 'pending',
+    FULFILLED: 'fulfilled',
+    REJECTED: 'rejected',
+};

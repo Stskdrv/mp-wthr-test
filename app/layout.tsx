@@ -19,10 +19,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { userId } = auth();
-
-  if (!userId) redirect('/sign-in');
-
   
   return (
     <ClerkProvider>

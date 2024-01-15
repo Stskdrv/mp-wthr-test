@@ -9,6 +9,7 @@ export interface useUserIdStoreInterface extends UserInterface {
 }
 
 const useUserData = create<useUserIdStoreInterface>((set) => ({
+    _id: '',
     userId: '',
     firstname: '',
     lastname: '',

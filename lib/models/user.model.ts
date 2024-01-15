@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    id: { type: String, required: true},
+    clerkId: { type: String, required: true},
     firstname: { 
         type: String, 
         required: true
@@ -24,12 +24,13 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    history: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'History'
-        }
-    ],
+    // history: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'History',
+    //         required: true,
+    //     }
+    // ],
     onboarded: {
         type: Boolean,
         default: false

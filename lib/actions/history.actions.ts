@@ -5,25 +5,42 @@ import UserModal from "../models/user.model";
 import { connectToDb } from "../mongoose";
 
 interface Params {
-    query: string, 
-    user: string,
+    data: {
+        lat: string | undefined;
+        lng: string | undefined;
+        searchQuery: string;
+    }, 
+    userId: string,
 };
 
 
-export const postHistory = async ({query, user}: Params) => {
+export const postHistory = async ({ data, userId }: Params) => {
     try {
         connectToDb();
 
-        const createdHistory = await HistoryModal.create({
-            query,
-            user,
-        });
-
-        await UserModal.findByIdAndUpdate(user, {
-            $push: { history: createdHistory._id },
+        // TODO: in future ensure that the user with the given userId exists
+ 
+        await HistoryModal.create({
+            userId,
+            data,
         });
 
     } catch (error: any) {
         throw new Error(`Failed to push history: ${error.message}`);
+    }
+};
+
+
+export async function fetchUserHistory(clerkId: string) {
+    try {
+        connectToDb();
+        console.log('hehehe');
+        
+        // Find all history entries with the given userId
+        const history = await HistoryModal.find({ userId: clerkId });
+        
+        return JSON.stringify(history);
+    } catch (error: any) {
+        throw new Error("Error fetching user history:" + error.message);
     }
 }

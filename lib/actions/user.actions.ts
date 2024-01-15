@@ -5,7 +5,7 @@ import { connectToDb } from "@/lib/mongoose";
 import HistoryModal from "@/lib/models/history.model";
 
 interface Params {
-    userId: string;
+    clerkId: string;
     firstname: string;
     lastname: string;
     address: string;
@@ -13,11 +13,12 @@ interface Params {
     tel: string;
 }
 
-export async function fetchUser(userId: string | null) {
+export async function fetchUser(clerkId: string | null) {
     try {
         connectToDb();
+        
 
-        return await UserModal.findOne({ id: userId });
+        return await UserModal.findOne({ clerkId });
     } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`);
     }
@@ -25,7 +26,7 @@ export async function fetchUser(userId: string | null) {
 
 
 export const updateUser = async ({
-    userId,
+    clerkId,
     firstname,
     lastname,
     address,
@@ -36,7 +37,7 @@ export const updateUser = async ({
         connectToDb();
 
         await UserModal.findOneAndUpdate(
-            { id: userId },
+            { clerkId },
             {
                 firstname: firstname.toLowerCase(),
                 lastname: lastname.toLowerCase(),
@@ -52,19 +53,3 @@ export const updateUser = async ({
         throw new Error(`Failed to create/update user: ${error.message}`);
     }
 };
-
-export async function fetchUserHistory(userId: string) {
-    try {
-        connectToDb();
-
-        // Find all history queries searched by the user with the given userId
-        const history = await UserModal.findOne({ id: userId }).populate({
-            path: "history",
-            model: HistoryModal,
-        });
-
-        return history;
-    } catch (error: any) {
-        throw new Error("Error fetching user history:", error);
-    }
-}

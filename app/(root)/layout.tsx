@@ -1,3 +1,4 @@
+import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -8,13 +9,13 @@ const RootLayout = async ({
 }: {
     children: React.ReactNode
 }) => {
-    const { userId } = auth();
-
-    if (!userId) redirect('/sign-in');
+    const userId = useAuthValidation();
 
     const userInfo = await fetchUser(userId);
+    console.log(userInfo, 'userInfo');
+    
 
-    if (userInfo.onboarded) redirect(`/map`);
+    if (userInfo && userInfo.onboarded) redirect(`/map`);
 
     return (
         <>
