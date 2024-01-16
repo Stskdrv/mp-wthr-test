@@ -35,7 +35,8 @@ export async function fetchUserHistory(clerkId: string) {
     try {
         connectToDb();
         
-        const history = await HistoryModel.find({ userId: clerkId });
+        const history = await HistoryModel.find({ userId: clerkId })
+            .sort({ createdAt: -1 });
         
         return JSON.stringify(history);
     } catch (error: any) {
