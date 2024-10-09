@@ -1,7 +1,6 @@
 "use server";
 
 import HistoryModel from "../models/history.model";
-import UserModal from "../models/user.model";
 import { connectToDb } from "../mongoose";
 
 interface Params {

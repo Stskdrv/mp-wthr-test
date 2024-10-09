@@ -16,9 +16,10 @@ interface Params {
 export async function fetchUser(clerkId: string | null) {
     try {
         connectToDb();
-        
 
-        return await UserModal.findOne({ clerkId });
+        const data = await UserModal.findOne({ clerkId });
+
+        return JSON.parse(JSON.stringify(data));
     } catch (error: any) {
         throw new Error(`Failed to fetch user: ${error.message}`);
     }

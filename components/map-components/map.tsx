@@ -22,6 +22,7 @@ import { getMarkerTitle } from '@/services/map.service';
 import { useRouter } from 'next/navigation';
 import { LOADING } from '@/lib/constants';
 import useInitMap from '@/hooks/useInitMap';
+import React from 'react';
 
 
 const Map = ({ search, userId }: { search?: boolean, userId: string }) => {

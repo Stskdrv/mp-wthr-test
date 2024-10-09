@@ -2,6 +2,7 @@ import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import React from "react";
 
 
 const RootLayout = async ({
@@ -13,7 +14,7 @@ const RootLayout = async ({
 
     const userInfo = await fetchUser(userId);
 
-    if (userInfo && userInfo.onboarded) redirect(`/map`);
+    if (userInfo?.onboarded) redirect(`/map`);
 
     return (
         <>

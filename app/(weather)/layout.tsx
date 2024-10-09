@@ -2,6 +2,7 @@ import Navbar from "@/components/header";
 import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import React from "react";
 
 const WeatherLayout = async ({
     children,

@@ -2,6 +2,7 @@ import Navbar from "@/components/header";
 import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
+import React from "react";
 
 const MapLayout = async ({
     children,
@@ -13,7 +14,7 @@ const MapLayout = async ({
 
     const userInfo = await fetchUser(userId);
 
-    if (!userInfo || !userInfo.onboarded) {
+    if (!userInfo?.onboarded) {
         redirect('/');
     }
 

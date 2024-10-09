@@ -3,6 +3,7 @@ import useAuthValidation from "@/hooks/useAuthValidatation";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import React from "react";
 
 const SearchLayout = async ({
     children,
